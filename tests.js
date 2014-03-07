@@ -1,8 +1,4 @@
 var where = function (source, predicate) {
-    return source.filter(predicate);
-};
-
-var where = function (source, predicate) {
     var results = [];
 
     for (var i = 0; i < source.length; i++)
@@ -10,10 +6,6 @@ var where = function (source, predicate) {
             results.push(source[i]);
 
     return results;
-};
-
-var select = function (source, selector) {
-    return source.map(selector);
 };
 
 var select = function (source, selector) {
@@ -51,11 +43,14 @@ module("where");
         deepEqual(result, [1, 3]);
     });
 
+function where(source, predicate) {
+    return source.filter(predicate);
+};
+
 module("select");
 
-    test("select on empty collection returns empty collection", function () {
-        var source = [];
-        var result = select(source, function (i) { return i; });
+    test("select on empty collection returns empty collection", function () {        
+        var result = select([], function (i) { return i; });
         deepEqual(result, []);
     });
 
@@ -79,3 +74,6 @@ module("select");
         deepEqual(result, [1, "2", 3]);
     });
 
+function select(source, selector) {
+    return source.map(selector);
+};
