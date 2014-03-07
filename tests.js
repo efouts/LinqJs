@@ -29,25 +29,26 @@ module("where");
 
     test("where on empty collection returns empty collection", function () {
         var result = where([], function (i) { return true; });
-        equal(result.length, 0);
+        deepEqual(result, []);
     });
 
     test("where on non empty collection with true as predicate returns all items in source", function () {
         var source = [1, 2, 3];
         var result = where(source, function (i) { return true; });
-        equal(result.length, source.length);
+        deepEqual(result, source);
     });
 
     test("where on non empty collection with false as predicate returns empty collection", function () {
         var source = [1, 2, 3];
         var result = where(source, function (i) { return false; });
-        equal(result.length, 0);
+        deepEqual(result, []);
     });
 
     test("where on non empty collection with complex predicate returns matching items from source", function () {
         var source = [1, 2, 3, 4];
         var result = where(source, function (i) { return i  % 2 != 0; });
         equal(result.length, 2);
+        deepEqual(result, [1, 3]);
     });
 
 module("select");
@@ -55,7 +56,7 @@ module("select");
     test("select on empty collection returns empty collection", function () {
         var source = [];
         var result = select(source, function (i) { return i; });
-        equal(result.length, 0);
+        deepEqual(result, []);
     });
 
     test("select on non empty collection projects all items in collection", function () {
