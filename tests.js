@@ -1,13 +1,28 @@
-test( "hello test", function() {
-  ok( 1 == "1", "Passed!" );
-});
-
 var where = function (source, predicate) {
     return source.filter(predicate);
 };
 
+var where = function (source, predicate) {
+    var results = [];
+
+    for (var i = 0; i < source.length; i++)
+        if (predicate(source[i]))
+            results.push(source[i]);
+
+    return results;
+};
+
 var select = function (source, selector) {
     return source.map(selector);
+};
+
+var select = function (source, selector) {
+    var results = [];
+
+    for (var i = 0; i < source.length; i++)
+        results.push(selector(source[i]));
+
+    return results;
 };
 
 module("where");
@@ -53,12 +68,13 @@ module("select");
         var source = [1, 2, 3];
 
         var crazySelector = function(i) {
-            if (i > 1)
+            if (i % 2 == 0)
                 return i.toString();
 
             return i;
         };
 
         var result = select(source, crazySelector);
-        deepEqual(result, [1, "2", "3"]);
+        deepEqual(result, [1, "2", 3]);
     });
+
